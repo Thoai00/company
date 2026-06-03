@@ -1,26 +1,106 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-light: #0a90d8;
+  --brand-mid:   #0070b0;
+  --brand-deep:  #012a5e;
+  --bg:          #03070e;
+
+  /* Rubik cube face colours */
+  --rubik-red:    #ef233c;
+  --rubik-orange: #f77f00;
+  --rubik-yellow: #f4c842;
+  --rubik-green:  #27ae60;
+  --rubik-blue:   #0a90d8;
+  --rubik-white:  #dce8f5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: #f0f4f8;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: #f0f4f8;
+  font-family: var(--font-geist-sans, Arial, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand-light);
+  color: #03070e;
+}
+
+/* ── Keyframes ── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); transform-origin: left center; }
+  to   { transform: scaleX(1); transform-origin: left center; }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes stickerPop {
+  0%   { transform: scale(0) rotate(-22deg); opacity: 0; }
+  68%  { transform: scale(1.22) rotate(5deg);  opacity: 1; }
+  100% { transform: scale(1)   rotate(0deg);   opacity: 1; }
+}
+
+@keyframes borderPulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.85; }
+}
+
+@keyframes scanDown {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(300%);  }
+}
+
+@keyframes cubeRotateIn {
+  0%   { opacity: 0; transform: perspective(800px) rotateY(-70deg) translateZ(-30px); }
+  100% { opacity: 1; transform: perspective(800px) rotateY(0deg)   translateZ(0); }
+}
+
+@keyframes counterGlow {
+  0%, 100% { text-shadow: 0 0 20px currentColor; }
+  50%       { text-shadow: 0 0 60px currentColor, 0 0 120px currentColor; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Always dark — override any OS light-mode preference ── */
+@media (prefers-color-scheme: light) {
+  html, body {
+    background: var(--bg) !important;
+    color: #f0f4f8   !important;
+  }
 }
